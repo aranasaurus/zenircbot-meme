@@ -22,3 +22,5 @@ Note
 ====
 The service will also send topic messages to the !meme command on topic change, if your version of zenircbot supports it.
 I have a fork of it on my github, which supports it, and will update here after I send a pull request to wraithan.
+
+Also it uses http://memecaptain.com for the meme genereation. You could theoretically run that on your own server using https://github.com/mmb/meme_captain
