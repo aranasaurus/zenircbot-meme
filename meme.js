@@ -16,7 +16,7 @@ var getMeme = function(msg, channel, use_default) {
     var message = msg;
 
     // grab the image url (or figure it out)
-    if (match=message.match(/(.+) \[?(http:\/\/[^\]]+)$/)) {
+    if (match=message.match(/(.+) \[?(http:\/\/[^\]]+)\]?$/)) {
         message = match[1];
         img = match[2];
     } else if (message.match(/^I don't always .+ but when I do .+/i)) {
@@ -34,7 +34,7 @@ var getMeme = function(msg, channel, use_default) {
         img = 'http://memecaptain.com/too_damn_high.jpg';
     } else if (message.match(/^(?:brace yourselves )?.+ are coming[!\.]?$/i)) {
         img = 'http://memecaptain.com/ned_stark.jpg';
-    } else if (message.match(/^what if .+\?$/i) {
+    } else if (message.match(/^what if .+\?$/i)) {
         img = 'http://memecaptain.com/conspiracy_keanu.jpg';
     } else if (message.match(/.+ and you should feel bad\.?$/i)){
         img = 'http://memecaptain.com/you_should_feel_bad.jpg';
