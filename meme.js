@@ -32,11 +32,11 @@ var getMeme = function(msg, channel, use_default) {
         img = 'http://memecaptain.com/xzibit.jpg';
     } else if (message.match(/.+ so hot right now$/i)) {
         img = 'http://cdn.buzznet.com/assets/users16/rich/default/mugatu--large-msg-124777042649.jpg';
-    } else if(use_default == true) {
+    } else if (use_default == true) {
         img = 'http://memecaptain.com/aliens.jpg';
     }
 
-    if(img == false) {
+    if (img == false) {
         // Only make a meme if the image is set. 
         // This function is called for all IRC messages. if use_default=true,
         // then img will be set to the default meme. This is only the case when 
