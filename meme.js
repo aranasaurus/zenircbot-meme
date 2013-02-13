@@ -46,6 +46,12 @@ var getMeme = function(msg, channel, explicit) {
         img = 'http://cdn.buzznet.com/assets/users16/rich/default/mugatu--large-msg-124777042649.jpg';
     } else if (message.match(/.+ is strong with this one$/i)) {
         img = 'http://twimg0-a.akamaihd.net/profile_images/1244937644/02emperor350.jpg';
+    } else if (match=message.match(/(.+ over )([0-9]+)([\.!]*)$/i)) {
+        img = 'http://cache.ohinternet.com/images/thumb/1/1e/Over_9000_Vector_by_Vernacular.jpg/618px-Over_9000_Vector_by_Vernacular.jpg';
+        if(parseInt(match[2]) < 1000) {
+            match[2] = match[2] * 1000;
+        }
+        message = match[1] + match[2] + match[3];
     } else if (explicit) {
         img = 'http://memecaptain.com/aliens.jpg';
     }
