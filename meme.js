@@ -19,7 +19,7 @@ var getMeme = function(msg, channel, use_default) {
     if (match=message.match(/(.+) \[?(http:\/\/[^\]]+)$/)) {
         message = match[1];
         img = match[2];
-    } else if (message.match(/^i don't always.*/i)) {
+    } else if (message.match(/^I don't always .+ but when I do .+/i)) {
         img = 'http://memecaptain.com/most_interesting.jpg';
     } else if (match=message.match(/([^ ]+ all the .*s)[!\.]?$/i)) {
         message = match[1];
@@ -30,6 +30,18 @@ var getMeme = function(msg, channel, use_default) {
         img = 'http://memecaptain.com/fry.png';
     } else if (message.match(/^.*I hea?rd you like .+$/i)) {
         img = 'http://memecaptain.com/xzibit.jpg';
+    } else if (message.match(/^the .+ is too (?:damn )?high[!\.]?/i)) {
+        img = 'http://memecaptain.com/too_damn_high.jpg';
+    } else if (message.match(/^(?:brace yourselves )?.+ are coming[!\.]?$/i)) {
+        img = 'http://memecaptain.com/ned_stark.jpg';
+    } else if (message.match(/^what if .+\?$/i) {
+        img = 'http://memecaptain.com/conspiracy_keanu.jpg';
+    } else if (message.match(/.+ and you should feel bad\.?$/i)){
+        img = 'http://memecaptain.com/you_should_feel_bad.jpg';
+    } else if (message.match(/.+ y u no .+$/i)) {
+        img = 'http://memecaptain.com/y_u_no.jpg';
+    } else if (message.match(/^am i the only one around here .+$/i)) {
+        img = 'http://memecaptain.com/walter.jpg';
     } else if (message.match(/.+ so hot right now$/i)) {
         img = 'http://cdn.buzznet.com/assets/users16/rich/default/mugatu--large-msg-124777042649.jpg';
     } else if (use_default == true) {
