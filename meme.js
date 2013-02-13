@@ -10,13 +10,13 @@ zen.register_commands('meme.js', [{
         'after the message. The default image is the aliens guy.'
 }]);
 
-var getMeme = function(msg, channel, use_default) {
+var getMeme = function(msg, channel, explicit) {
     var t1, t2, url;
     var img = false;
     var message = msg;
 
     // grab the image url (or figure it out)
-    if (match=message.match(/(.+) \[?(http:\/\/[^\]]+)\]?$/)) {
+    if (explicit && (match=message.match(/(.+) \[?(https?:\/\/[^\]]+)\]?$/))) {
         message = match[1];
         img = match[2];
     } else if (message.match(/^I don't always .+ but when I do .+/i)) {
@@ -44,7 +44,9 @@ var getMeme = function(msg, channel, use_default) {
         img = 'http://memecaptain.com/walter.jpg';
     } else if (message.match(/.+ so hot right now$/i)) {
         img = 'http://cdn.buzznet.com/assets/users16/rich/default/mugatu--large-msg-124777042649.jpg';
-    } else if (use_default == true) {
+    } else if (message.match(/.+ is strong with this one$/i)) {
+        img = 'http://twimg0-a.akamaihd.net/profile_images/1244937644/02emperor350.jpg';
+    } else if (explicit) {
         img = 'http://memecaptain.com/aliens.jpg';
     }
 
