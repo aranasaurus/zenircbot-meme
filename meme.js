@@ -20,9 +20,9 @@ var getMeme = function(msg, channel) {
         var end = message.indexOf(']');
         img = message.substring(start+1, end);
         message = message.substring(0, start);
-    } else if (message.match(/^I don't always.*/i)) {
+    } else if (message.match(/^I don't always .* but when I do .*/i)) {
         img = 'http://memecaptain.com/most_interesting.jpg';
-    } else if (message.match(/.*ALL THE .*$/i)) {
+    } else if (message.match(/.*ALL THE .*S$/i)) {
         img = 'http://memecaptain.com/all_the_things.jpg';
     } else if (message.match(/^one does not simply .*$/i)) {
         img = 'http://memecaptain.com/boromir.jpg';
@@ -30,6 +30,18 @@ var getMeme = function(msg, channel) {
         img = 'http://memecaptain.com/fry.png';
     } else if (message.match(/^.*I hea?rd you like .*$/i)) {
         img = 'http://memecaptain.com/xzibit.jpg';
+    } else if (message.match(/^.*is too (?:damn )?high/i)) {
+        img = 'http://memecaptain.com/too_damn_high.jpg';
+    } else if (message.match(/^(?:brace yourselves )?.* are coming\.?$/i)) {
+        img = 'http://memecaptain.com/ned_stark.jpg';
+    } else if (message.match(/^what if .*\?$/i) {
+        img = 'http://memecaptain.com/conspiracy_keanu.jpg';
+    } else if (message.match(/^.*and you should feel bad\.?$/i)){
+        img = 'http://memecaptain.com/you_should_feel_bad.jpg';
+    } else if (message.match(/^.*y u no .*$/i)) {
+        img = 'http://memecaptain.com/y_u_no.jpg';
+    } else if (message.match(/^am i the only one around here .*$/i)) {
+        img = 'http://memecaptain.com/walter.jpg';
     } else {
         img = 'http://memecaptain.com/aliens.jpg';
     }
