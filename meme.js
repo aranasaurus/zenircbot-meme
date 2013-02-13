@@ -96,10 +96,8 @@ sub.on('message', function( channel, message ) {
     if (msg.version == 1) {
         if (msg.type == 'privmsg') {
             if (/^!meme /i.test(msg.data.message)) {
-                console.log("explicit: "+msg.data.message);
                 getMeme(msg.data.message.substring(6, msg.data.message.length), msg.data.channel, true);
             } else {
-                console.log("implicit: "+msg.data.message);
                 getMeme(msg.data.message, msg.data.channel, false);
             }
         } else if (msg.type == 'topic') {
