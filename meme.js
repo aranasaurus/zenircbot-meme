@@ -3,6 +3,16 @@ var zen = new ZenIRCBot();
 var sub = zen.get_redis_client();
 var http = require('http');
 
+var throttled = false;
+var throttleSeconds = 120;
+
+function throttle() {
+  throttled = true;
+  setTimeout(function() {
+    throttled = false;
+  }, throttleSeconds * 1000);
+}
+
 zen.register_commands('meme.js', [{
     name: '!meme',
     description: 'Generates a meme with the given text. It will split on "." and put the first ' +
@@ -107,12 +117,17 @@ var getMeme = function(msg, channel, use_default) {
 sub.subscribe('in');
 sub.on('message', function( channel, message ) {
     var msg = JSON.parse(message);
+    if (throttled) {
+      return;
+    }
     if (msg.version == 1) {
         if (msg.type == 'privmsg') {
             if (/^!meme /i.test(msg.data.message)) {
                 getMeme(msg.data.message.substring(6, msg.data.message.length), msg.data.channel, true);
+                throttle();
             } else {
                 getMeme(msg.data.message, msg.data.channel, false);
+                throttle();
             }
         } else if (msg.type == 'topic') {
             getMeme(msg.data.topic, msg.data.channel, true);
