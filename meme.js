@@ -54,7 +54,7 @@ var getMeme = function(msg, channel, explicit) {
             match[2] = match[2] * 1000;
         }
         message = match[1] + match[2] + match[3];
-    } else if (message.test(/^this is .+[!\.]$/i)) {
+    } else if (message.test(/^this is .+!$/i)) {
         img = 'http://itechnow.com/wp-content/uploads/2013/01/This-is-Sparta-.jpg';
     } else if (explicit) {
         img = 'http://memecaptain.com/aliens.jpg';
