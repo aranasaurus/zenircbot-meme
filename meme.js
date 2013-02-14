@@ -10,13 +10,13 @@ zen.register_commands('meme.js', [{
         'after the message. The default image is the aliens guy.'
 }]);
 
-var getMeme = function(msg, channel, use_default) {
+var getMeme = function(msg, channel, explicit) {
     var t1, t2, url;
     var img = false;
     var message = msg;
 
     // grab the image url (or figure it out)
-    if (match=message.match(/(.+) \[?(http:\/\/[^\]]+)$/)) {
+    if (explicit && (match=message.match(/(.+) \[?(https?:\/\/[^\]]+)\]?$/))) {
         message = match[1];
         img = match[2];
     } else if (message.match(/^I don't always .+ but when I do .+/i)) {
@@ -34,7 +34,7 @@ var getMeme = function(msg, channel, use_default) {
         img = 'http://memecaptain.com/too_damn_high.jpg';
     } else if (message.match(/^(?:brace yourselves )?.+ are coming[!\.]?$/i)) {
         img = 'http://memecaptain.com/ned_stark.jpg';
-    } else if (message.match(/^what if .+\?$/i) {
+    } else if (message.match(/^what if .+\?$/i)) {
         img = 'http://memecaptain.com/conspiracy_keanu.jpg';
     } else if (message.match(/.+ and you should feel bad\.?$/i)){
         img = 'http://memecaptain.com/you_should_feel_bad.jpg';
@@ -46,7 +46,15 @@ var getMeme = function(msg, channel, use_default) {
         img = 'http://cdn.buzznet.com/assets/users16/rich/default/mugatu--large-msg-124777042649.jpg';
     } else if (message.match(/^ermahgerd[!\.]? .+$/i)) {
         img = 'http://i.imgur.com/KGaxT49.jpg';
-    } else if (use_default == true) {
+    } else if (message.match(/.+ is strong with this one$/i)) {
+        img = 'http://twimg0-a.akamaihd.net/profile_images/1244937644/02emperor350.jpg';
+    } else if (match=message.match(/(.+ over )([0-9]+)([\.!]*)$/i)) {
+        img = 'http://cache.ohinternet.com/images/thumb/1/1e/Over_9000_Vector_by_Vernacular.jpg/618px-Over_9000_Vector_by_Vernacular.jpg';
+        if(parseInt(match[2]) < 1000) {
+            match[2] = match[2] * 1000;
+        }
+        message = match[1] + match[2] + match[3];
+    } else if (explicit) {
         img = 'http://memecaptain.com/aliens.jpg';
     }
 
