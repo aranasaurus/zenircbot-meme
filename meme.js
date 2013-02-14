@@ -44,6 +44,8 @@ var getMeme = function(msg, channel, use_default) {
         img = 'http://memecaptain.com/walter.jpg';
     } else if (message.match(/.+ so hot right now$/i)) {
         img = 'http://cdn.buzznet.com/assets/users16/rich/default/mugatu--large-msg-124777042649.jpg';
+    } else if (message.match(/^ermahgerd[!\.]? .+$/i)) {
+        img = 'http://i.imgur.com/KGaxT49.jpg';
     } else if (use_default == true) {
         img = 'http://memecaptain.com/aliens.jpg';
     }
