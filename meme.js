@@ -98,7 +98,7 @@ var getMeme = function(msg, channel, explicit) {
             testString: "The force is strong with this one."
         },
         {
-            regex: /(^this is) (.+!?$)/i,
+            regex: /(^this is) (.+!$)/i,
             img: 'http://itechnow.com/wp-content/uploads/2013/01/This-is-Sparta-.jpg',
             testString: "This is IRC!"
         },
