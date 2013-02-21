@@ -3,7 +3,7 @@ var zen = new ZenIRCBot();
 var sub = zen.get_redis_client();
 var request = require('request');
 var querystring = require('querystring');
-var config = require('./memes.js');
+var config = require('./config.js');
 
 var DEBUG = true;
 var debugLog = function(msg) {
@@ -94,8 +94,12 @@ var sendMeme = function(channel, img, message, t1, t2) {
 
     console.log('sending request t1='+t1+' t2='+t2+' img='+img);
     request(config.api_url+'/g?u=' + encodeURI(img) + '&t1=' + encodeURI(t1) + '&t2=' + encodeURI(t2), function(error, response, body){
-        var meme = JSON.parse(body);
-        zen.send_privmsg(channel, meme.imageUrl);
+        try {
+            var meme = JSON.parse(body);
+            zen.send_privmsg(channel, meme.imageUrl);
+        } catch (error) {
+            console.log("Unable to parse json from response:", response);
+        }
     });
 };
 
