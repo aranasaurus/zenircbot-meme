@@ -80,6 +80,11 @@ module.exports.detectors = [
         testString: "Bronchitis, ain't nobody got time for that!"
     },
     {
+        regex: /(.+) (\w+ go(?:es)? to (?:eleven|11))!?$/i,
+        img: 'http://i660.photobucket.com/albums/uu328/zerosignal/goes_to_eleven.jpg',
+        testString: "The memes, they go to eleven!"
+    },
+    {
         regex: /(.+ over )([0-9]+)([\.!]*)$/i,
         img: 'http://cache.ohinternet.com/images/thumb/1/1e/Over_9000_Vector_by_Vernacular.jpg/618px-Over_9000_Vector_by_Vernacular.jpg',
         testString: "His karma, it's over 9000!",
