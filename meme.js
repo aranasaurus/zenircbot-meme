@@ -3,7 +3,7 @@ var zen = new ZenIRCBot();
 var sub = zen.get_redis_client();
 var request = require('request');
 var querystring = require('querystring');
-var memeDetectors = require('./memes.js').detectors;
+var config = require('./memes.js');
 
 var DEBUG = true;
 var debugLog = function(msg) {
@@ -93,7 +93,7 @@ var sendMeme = function(channel, img, message, t1, t2) {
     }
 
     console.log('sending request t1='+t1+' t2='+t2+' img='+img);
-    request('http://memecaptain.com/g?u=' + encodeURI(img) + '&t1=' + encodeURI(t1) + '&t2=' + encodeURI(t2), function(error, response, body){
+    request(config.api_url+'/g?u=' + encodeURI(img) + '&t1=' + encodeURI(t1) + '&t2=' + encodeURI(t2), function(error, response, body){
         var meme = JSON.parse(body);
         zen.send_privmsg(channel, meme.imageUrl);
     });
@@ -102,7 +102,6 @@ var sendMeme = function(channel, img, message, t1, t2) {
 var getMeme = function(msg, channel, explicit) {
     var t1 = false, t2 = false, img = false;
     var message = msg;
-    var defaultImg = 'http://memecaptain.com/aliens.jpg';
 
     debugLog('getMeme called: msg: "' + msg + '" channel: ' + channel + ' explicit: ' + explicit);
 
@@ -118,8 +117,8 @@ var getMeme = function(msg, channel, explicit) {
             return;
         }
     } else {
-        for (var d in memeDetectors) {
-            var detector = memeDetectors[d];
+        for (var d in config.detectors) {
+            var detector = config.detectors[d];
             debugLog('checking detector: ' + detector.testString);
             var match = detector.regex.exec(message);
             if (match) {
@@ -138,8 +137,8 @@ var getMeme = function(msg, channel, explicit) {
 
         // No detectors matched, if this is an explicit call, set img to the default
         if (!img && explicit) {
-            debugLog('No meme auto detected, using default img: ' + defaultImg);
-            img = defaultImg;
+            debugLog('No meme auto detected, using default img: ' + config.default_image);
+            img = config.default_image;
         }
     }
 
