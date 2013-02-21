@@ -102,6 +102,10 @@ var getMeme = function(msg, channel, explicit) {
             img: 'http://itechnow.com/wp-content/uploads/2013/01/This-is-Sparta-.jpg',
             testString: "This is IRC!"
         },
+        {   regex: /(^.+,?) (ain'?t nobody got time for? that|dat[!\.]*)$/i,
+            img: 'http://i.imgur.com/hDxoEB8.jpg',
+            testString: "Bronchitis, ain't nobody got time for that!"
+        },
         {
             regex: /(.+ over )([0-9]+)([\.!]*)$/i,
             img: 'http://cache.ohinternet.com/images/thumb/1/1e/Over_9000_Vector_by_Vernacular.jpg/618px-Over_9000_Vector_by_Vernacular.jpg',
