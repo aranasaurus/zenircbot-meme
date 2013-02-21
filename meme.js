@@ -6,7 +6,7 @@ var request = require('request');
 var querystring = require('querystring');
 var memeDetectors = require('./memes.js').detectors;
 
-var DEBUG = false;
+var DEBUG = true;
 var debugLog = function(msg) {
     if (DEBUG) {
         console.log(msg);
@@ -65,13 +65,28 @@ var sendMeme = function(channel, img, message, t1, t2) {
     }
 
     // messageRegex splits the text based on ., ..., or |
-    var messageRegex = /(.+[\.+|\|]) ?(.*)/;
+    // This list of test strings should all end up in their corresponding place:
+    // top... bottom.
+    // top... bottom
+    // top... | bottom.
+    // top... | bottom
+    // top. bottom
+    // top. bottom.
+    // top. | bottom
+    // top. | bottom.
+    // top top.
+    // top | bottom
+    // top | bottom.
+    // top | bottom...
+    // |bottom
+    // TODO: automate the testing of the above =P
+    var messageRegex = /^([^\.\|]+(?:\.*|$))?\ ?\|? ?(.*$)/i;
     // split the message into top/bottom only if t1 and t2 are both unset
     if (!t1 && !t2) {
         if (messageRegex.test(message)) {
-        var match = messageRegex.exec(message);
-        t1 = match[1].replace('|', '');
-        t2 = match[2];
+            var match = messageRegex.exec(message);
+            t1 = match[1] || '';
+            t2 = match[2] || '';
         } else {
             t1 = '';
             t2 = message;
