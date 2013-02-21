@@ -12,6 +12,10 @@ To run this using passenger, create an nginx config block like the following:
 
     root /web/zenircbot-meme/api/public;
     passenger_enabled on;
+
+    location / {
+      rewrite ^/([0-9a-zA-Z]+\.jpg)$ /m/$1 break;
+    }
   }       
 ---
 

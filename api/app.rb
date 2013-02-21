@@ -10,7 +10,7 @@ get '/g' do
     filename = "#{DateTime.now.to_sxg}#{SecureRandom.random_number(60**5).to_sxg}.jpg"
     i.write("./public/m/#{filename}")
     headers 'Content-type' => 'application/json'
-    {imageUrl: "http://#{request.host}/m/#{filename}"}.to_json
+    {imageUrl: "http://#{request.host}/#{filename}"}.to_json
   end
 
 end
