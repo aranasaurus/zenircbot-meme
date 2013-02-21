@@ -1,7 +1,6 @@
 var ZenIRCBot = require('zenircbot-api').ZenIRCBot;
 var zen = new ZenIRCBot();
 var sub = zen.get_redis_client();
-var http = require('http');
 var request = require('request');
 var querystring = require('querystring');
 var memeDetectors = require('./memes.js').detectors;
@@ -94,32 +93,9 @@ var sendMeme = function(channel, img, message, t1, t2) {
     }
 
     console.log('sending request t1='+t1+' t2='+t2+' img='+img);
-    var options = {
-        host: 'memecaptain.com',
-        port: 80,
-        path: '/g?u=' + encodeURI(img) + '&t1=' + encodeURI(t1) + '&t2=' + encodeURI(t2),
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    };
-    http.get(options, function(res) {
-        var memeData = '';
-        res.setEncoding('utf8');
-
-        res.on('data', function(chunk) {
-            memeData += chunk;
-        });
-
-        res.on('end', function() {
-            if (memeData) {
-                var meme = JSON.parse(memeData);
-                zen.send_privmsg(channel, meme.imageUrl);
-            }
-        });
-    }).on('error', function(e) {
-        // TODO: send this to zenircbot's admin spam, if possible.
-        console.log('got error sending request: ' + e.message);
+    request('http://memecaptain.com/g?u=' + encodeURI(img) + '&t1=' + encodeURI(t1) + '&t2=' + encodeURI(t2), function(error, response, body){
+        var meme = JSON.parse(body);
+        zen.send_privmsg(channel, meme.imageUrl);
     });
 };
 
