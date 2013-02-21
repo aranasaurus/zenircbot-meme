@@ -1,9 +1,9 @@
 MemeCaptain API
 ===============
 
-This is a simple Sinatra app that wraps the memecaptain gem.
+This is a simple Sinatra app that wraps the [meme_captain](https://github.com/mmb/meme_captain) gem.
 
-To run this in passenger, create an nginx config block like the following:
+To run this using passenger, create an nginx config block like the following:
 
 ---
   server {
@@ -12,10 +12,6 @@ To run this in passenger, create an nginx config block like the following:
 
     root /web/zenircbot-meme/api/public;
     passenger_enabled on;
-
-    location /memes/ {
-      alias /web/zenircbot-meme/api/public/memes;
-    }
   }       
 ---
 
