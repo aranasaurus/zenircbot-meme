@@ -148,8 +148,8 @@ var getMeme = function(msg, channel, explicit) {
             var match = detector.regex.exec(message);
             if (match) {
                 debugLog('matched');
-                t1 = match[1];
-                t2 = match[2];
+                t1 = match[1] || '';
+                t2 = match[2] || '';
                 img = detector.img;
                 debugger;
                 if (detector.postProc) {

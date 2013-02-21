@@ -5,7 +5,7 @@ module.exports.detectors = [
         testString: "I don't always test my code, but when I do, I do it in production."
     },
     {
-        regex: /([^ ]+ all the .*s)()/i,
+        regex: /([^ ]+ all the .*s)/i,
         img: 'http://memecaptain.com/all_the_things.jpg',
         testString: "Refactor all the things!"
     },
