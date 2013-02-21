@@ -75,6 +75,11 @@ module.exports.detectors = [
         testString: "This is IRC!"
     },
     {
+        regex: /(^.+,?) (ain'?t nobody got time for? (?:th|d)at[!\.]*)$/i,
+        img: 'http://i.imgur.com/hDxoEB8.jpg',
+        testString: "Bronchitis, ain't nobody got time for that!"
+    },
+    {
         regex: /(.+ over )([0-9]+)([\.!]*)$/i,
         img: 'http://cache.ohinternet.com/images/thumb/1/1e/Over_9000_Vector_by_Vernacular.jpg/618px-Over_9000_Vector_by_Vernacular.jpg',
         testString: "His karma, it's over 9000!",
