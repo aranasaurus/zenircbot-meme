@@ -7,7 +7,7 @@ module.exports.detectors = [
         testString: "I don't always test my code, but when I do, I do it in production."
     },
     {
-        regex: /(\w+(?: \w+)?) (all the .*s)/i,
+        regex: /(\w+(?: \w+)?) (all the .+s)[!\.]*$/i,
         img: 'http://meme.loqi.me/img/all_the_things.jpg',
         testString: "Refactor all the things!"
     },
@@ -18,7 +18,7 @@ module.exports.detectors = [
     },
     {
         regex: /(^not sure if .+) (or .+$)/i,
-        img: 'http://meme.loqi.me/img/fry.jpg',
+        img: 'http://meme.loqi.me/img/fry.png',
         testString: "Not sure if this is working, or is awesome."
     },
     {
