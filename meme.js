@@ -99,6 +99,13 @@ var sendMeme = function(channel, img, message, t1, t2) {
             zen.send_privmsg(channel, meme.imageUrl);
         } catch (error) {
             console.log("Unable to parse json from response:", response);
+            if(meme.error) {
+                zen.send_privmsg(channel, "Uhoh! "+meme.error)
+            } else if(meme.imageUrl) {
+                zen.send_privmsg(channel, meme.imageUrl);
+            } else {
+                zen.send_privmsg(channel, "Something went wrong!");
+            }
         }
     });
 };
