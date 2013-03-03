@@ -103,7 +103,7 @@ var sendMeme = function(channel, img, message, t1, t2) {
         }
     }
 
-    var url = config.api_url+'/g?u=' + encodeURI(img) + '&t1=' + encodeURI(t1) + '&t2=' + encodeURI(t2);
+    var url = config.api_url+'/g?u=' + encodeURIComponent(img) + '&t1=' + encodeURIComponent(t1) + '&t2=' + encodeURIComponent(t2);
     console.log('sending request t1='+t1+' t2='+t2+' img='+img);
     console.log(url);
     request(url, function(error, response, body){
