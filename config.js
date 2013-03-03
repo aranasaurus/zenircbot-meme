@@ -17,7 +17,7 @@ module.exports.detectors = [
         testString: "One does not simply meme in IRC."
     },
     {
-        regex: /(^not sure if .+) (or .+$)/i,
+        regex: /(^not sure if [^\|]+)(?: \|)? (or .+$)/i,
         img: 'http://meme.loqi.me/img/fry.png',
         testString: "Not sure if this is working, or is awesome."
     },

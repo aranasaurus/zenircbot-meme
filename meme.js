@@ -5,7 +5,7 @@ var request = require('request');
 var querystring = require('querystring');
 var config = require('./config.js');
 
-var DEBUG = true;
+var DEBUG = false;
 var debugLog = function(msg) {
     if (DEBUG) {
         console.log(msg);
@@ -92,8 +92,10 @@ var sendMeme = function(channel, img, message, t1, t2) {
         }
     }
 
+    var url = config.api_url+'/g?u=' + encodeURI(img) + '&t1=' + encodeURI(t1) + '&t2=' + encodeURI(t2);
     console.log('sending request t1='+t1+' t2='+t2+' img='+img);
-    request(config.api_url+'/g?u=' + encodeURI(img) + '&t1=' + encodeURI(t1) + '&t2=' + encodeURI(t2), function(error, response, body){
+    console.log(url);
+    request(url, function(error, response, body){
         try {
             var meme = JSON.parse(body);
             zen.send_privmsg(channel, meme.imageUrl);
