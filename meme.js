@@ -86,9 +86,11 @@ var sendMeme = function(channel, img, message, t1, t2) {
             var match = messageRegex.exec(message);
             t1 = match[1] || '';
             t2 = match[2] || '';
-        } else {
-            t1 = '';
-            t2 = message;
+
+            if (t1 && !t2 && config.default_pos != 'top') {
+                t1 = '';
+                t2 = match[1];
+            }
         }
     }
 
@@ -139,7 +141,6 @@ var getMeme = function(msg, channel, explicit) {
                 t1 = match[1] || '';
                 t2 = match[2] || '';
                 img = detector.img;
-                debugger;
                 if (detector.postProc) {
                     debugLog('Running postProc, t1: "' + t1 + '" t2: "' + t2 + '" img: ' + img);
                     detector.postProc(match);
@@ -154,6 +155,7 @@ var getMeme = function(msg, channel, explicit) {
             img = config.default_image;
         }
     }
+    debugger;
 
     sendMeme(channel, img, message, t1, t2);
 };
