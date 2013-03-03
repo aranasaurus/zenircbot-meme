@@ -5,7 +5,7 @@ var request = require('request');
 var querystring = require('querystring');
 var config = require('./config.js');
 
-var DEBUG = false;
+var DEBUG = config.debug;
 var debugLog = function(msg) {
     if (DEBUG) {
         console.log(msg);

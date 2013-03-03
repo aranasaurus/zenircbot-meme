@@ -1,6 +1,7 @@
 module.exports.api_url = 'http://meme.loqi.me';
 module.exports.default_image = 'http://meme.loqi.me/img/aliens.jpg';
 module.exports.default_pos = 'bottom';
+module.exports.debug = false;
 module.exports.detectors = [
     {
         regex: /(^I don't always .+) (but when I do,? .+$)/i,
