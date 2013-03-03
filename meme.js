@@ -15,13 +15,12 @@ var debugLog = function(msg) {
 // TODO: A test harness for detectors using their supplied testStrings.
 
 var throttled = false;
-var throttleSeconds = 120;
 
 function throttle() {
   throttled = true;
   setTimeout(function() {
     throttled = false;
-  }, throttleSeconds * 1000);
+  }, config.throttleSeconds * 1000);
 }
 
 zen.register_commands('meme.js', [{
