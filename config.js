@@ -90,6 +90,11 @@ module.exports.detectors = [
         testString: "The memes, they go to eleven!"
     },
     {
+        regex: /^()(fantastic)!*$/i,
+        img: 'http://meme.loqi.me/img/fantastic-doctor.jpg',
+        testString: "fantastic!"
+    },
+    {
         regex: /(.+ over )([0-9]+)([\.!]*)$/i,
         img: 'http://meme.loqi.me/img/over_9000.jpg',
         testString: "His karma, it's over 9000!",
