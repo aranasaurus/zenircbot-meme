@@ -107,18 +107,25 @@ var sendMeme = function(channel, img, message, t1, t2) {
     console.log('sending request t1='+t1+' t2='+t2+' img='+img);
     console.log(url);
     request(url, function(error, response, body){
-        try {
-            var meme = JSON.parse(body);
-            zen.send_privmsg(channel, meme.imageUrl);
-        } catch (error) {
-            console.log("Unable to parse json from response:", response);
-            if(meme.error) {
+        // Sanity check to make sure the API returned JSON
+        if(body && body.match(/^{.+}$/)) {
+            try {
+                var meme = JSON.parse(body);
+            } catch (error) {
+                console.log("Unable to parse json from response:", response);
+                zen.send_privmsg(channel, "Meme server returned nonsense!");
+                return;
+            }
+
+            if(meme && meme.error) {
                 zen.send_privmsg(channel, "Uhoh! "+meme.error)
-            } else if(meme.imageUrl) {
+            } else if(meme && meme.imageUrl) {
                 zen.send_privmsg(channel, meme.imageUrl);
             } else {
-                zen.send_privmsg(channel, "Something went wrong!");
+                zen.send_privmsg(channel, "Something went horribly wrong!");
             }
+        } else {
+            zen.send_privmsg(channel, "Something went horribly wrong!");
         }
     });
 };
@@ -184,7 +191,7 @@ sub.on('message', function( channel, message ) {
                 getMeme(msg.data.message, msg.data.channel, false);
                 throttle();
             }
-        } else if (msg.type === 'topic') {
+        } else if (msg.type === 'topic' && config.meme_on_topic_change) {
             getMeme(msg.data.topic, msg.data.channel, true);
         }
     }
