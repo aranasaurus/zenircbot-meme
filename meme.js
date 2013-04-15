@@ -124,10 +124,11 @@ var sendMeme = function(channel, img, message, t1, t2) {
                 zen.send_privmsg(channel, "Uhoh! "+meme.error)
             } else if(meme && meme.imageUrl) {
                 zen.send_privmsg(channel, meme.imageUrl);
-                zen.get_redis_client().publish('memes', JSON.stringify({
-                    "img_url": meme.imageUrl
-                }));
-                lastMeme = meme.imageUrl;
+                lastMeme = {
+                    "img_url": meme.imageUrl,
+                    "channel": channel
+                };
+                zen.get_redis_client().publish('memes', JSON.stringify(lastMeme));
             } else {
                 zen.send_privmsg(channel, "Something went horribly wrong!");
             }
@@ -253,9 +254,7 @@ appServer.addRoute("/meme.json", function(req, res){
 appServer.addRoute("/last.json", function(req, res){
     res.setHeader('Content-Type', 'application/json');
     var data = {
-        "result": {
-            "img_url": lastMeme
-        }
+        "result": lastMeme
     };
     res.write(JSON.stringify(data));
     res.end();

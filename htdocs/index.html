@@ -15,19 +15,24 @@
 <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 <script type="text/javascript">
 $(function(){
-  $.getJSON("/last.json", function(data){
-    if(data.result && data.result.img_url) {
+  function handle_response(data) {
+    if(data.result && data.result.img_url && data.result.channel == window.location.search.replace(/\?/, '#')) {
       $("#meme").attr("src", data.result.img_url);
+      return true;
+    } else {
+      return false;
     }
+  }
+
+  $.getJSON("/last.json", function(data){
+    handle_response(data);
   });
 
   // Start a request which will hang a long time until a meme is generated
   function get_new_meme() {
     $.getJSON("/meme.json", function(data){
-      if(data.result && data.result.img_url) {
-        $("#meme").attr("src", data.result.img_url);
-        get_new_meme();
-      }
+      handle_response(data);
+      get_new_meme();
     });
   }
 
