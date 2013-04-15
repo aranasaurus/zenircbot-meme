@@ -233,7 +233,7 @@ appServer.addRoute("/meme.json", function(req, res){
         };
         res.write(JSON.stringify(data));
         res.end();
-    }, 120000);
+    }, 30000);
 
     // Wait for a meme to be generated
     c.subscribe('memes');
