@@ -1,0 +1,24 @@
+<img src="" id="meme" style="width: 100%;" />
+
+<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script type="text/javascript">
+$(function(){
+  $.getJSON("/last.json", function(data){
+    if(data.result && data.result.img_url) {
+      $("#meme").attr("src", data.result.img_url);
+    }
+  });
+
+  // Start a request which will hang a long time until a meme is generated
+  function get_new_meme() {
+    $.getJSON("/meme.json", function(data){
+      if(data.result && data.result.img_url) {
+        $("#meme").attr("src", data.result.img_url);
+        get_new_meme();
+      }
+    });
+  }
+
+  get_new_meme();
+});
+</script>

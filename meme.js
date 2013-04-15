@@ -4,6 +4,7 @@ var sub = zen.get_redis_client();
 var request = require('request');
 var querystring = require('querystring');
 var config = require('./config.js');
+var bricks = require('bricks');
 
 var DEBUG = config.debug;
 var debugLog = function(msg) {
@@ -15,6 +16,7 @@ var debugLog = function(msg) {
 // TODO: A test harness for detectors using their supplied testStrings.
 
 var throttled = false;
+var lastMeme = false;
 
 function throttle() {
   throttled = true;
@@ -121,6 +123,10 @@ var sendMeme = function(channel, img, message, t1, t2) {
                 zen.send_privmsg(channel, "Uhoh! "+meme.error)
             } else if(meme && meme.imageUrl) {
                 zen.send_privmsg(channel, meme.imageUrl);
+                zen.get_redis_client().publish('memes', JSON.stringify({
+                    "img_url": meme.imageUrl
+                }));
+                lastMeme = meme.imageUrl;
             } else {
                 zen.send_privmsg(channel, "Something went horribly wrong!");
             }
@@ -196,3 +202,67 @@ sub.on('message', function( channel, message ) {
         }
     }
 });
+
+
+// Set up the HTTP listener
+
+var appServer = new bricks.appserver();
+
+var redirects = [
+  {
+    path: "^/$",
+    url:  "/index.html"
+  }
+];
+appServer.addRoute(".+", appServer.plugins.redirect, { section: "pre", routes: redirects });
+appServer.addRoute(".+", appServer.plugins.filehandler, { basedir: "./htdocs" });
+
+appServer.addRoute("/meme.json", function(req, res){
+
+    var c = zen.get_redis_client();
+
+    // Time out after n seconds
+    var timer = setTimeout(function(){
+        c.end();
+
+        res.setHeader('Content-Type', 'application/json');
+        var data = {
+            "result": "none"
+        };
+        res.write(JSON.stringify(data));
+        res.end();
+    }, 120000);
+
+    // Wait for a meme to be generated
+    c.subscribe('memes');
+    c.on('message', function(channel, message){
+        clearTimeout(timer);
+        c.end();
+
+        res.setHeader('Content-Type', 'application/json');
+        var data = {
+            "result": JSON.parse(message)
+        };
+        res.write(JSON.stringify(data));
+        res.end();
+    });
+
+});
+
+appServer.addRoute("/last.json", function(req, res){
+    res.setHeader('Content-Type', 'application/json');
+    var data = {
+        "result": {
+            "img_url": lastMeme
+        }
+    };
+    res.write(JSON.stringify(data));
+    res.end();
+});
+
+appServer.addRoute(".+", appServer.plugins.fourohfour);
+
+var server = appServer.createServer();
+server.listen(config.port);
+console.log("Web server listening on port "+config.port);
+
