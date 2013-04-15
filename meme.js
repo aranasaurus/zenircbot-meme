@@ -1,3 +1,4 @@
+process.chdir(__dirname);
 var ZenIRCBot = require('zenircbot-api').ZenIRCBot;
 var zen = new ZenIRCBot();
 var sub = zen.get_redis_client();
