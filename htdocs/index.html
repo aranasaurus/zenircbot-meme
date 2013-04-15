@@ -15,8 +15,14 @@
 <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 <script type="text/javascript">
 $(function(){
+  var channel = "#portland";
+
+  if(window.location.search) {
+    channel = window.location.search.replace(/\?/, '#');
+  }
+
   function handle_response(data) {
-    if(data.result && data.result.img_url && data.result.channel == window.location.search.replace(/\?/, '#')) {
+    if(data.result && data.result.img_url && data.result.channel == channel) {
       $("#meme").attr("src", data.result.img_url);
       return true;
     } else {
