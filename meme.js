@@ -17,7 +17,7 @@ var debugLog = function(msg) {
 // TODO: A test harness for detectors using their supplied testStrings.
 
 var throttled = false;
-var lastMeme = false;
+var lastMeme = { };
 
 function throttle() {
   throttled = true;
@@ -124,11 +124,11 @@ var sendMeme = function(channel, img, message, t1, t2) {
                 zen.send_privmsg(channel, "Uhoh! "+meme.error)
             } else if(meme && meme.imageUrl) {
                 zen.send_privmsg(channel, meme.imageUrl);
-                lastMeme = {
+                lastMeme[channel] = {
                     "img_url": meme.imageUrl,
                     "channel": channel
                 };
-                zen.get_redis_client().publish('memes', JSON.stringify(lastMeme));
+                zen.get_redis_client().publish('memes', JSON.stringify(lastMeme[channel]));
             } else {
                 zen.send_privmsg(channel, "Something went horribly wrong!");
             }
@@ -254,7 +254,7 @@ appServer.addRoute("/meme.json", function(req, res){
 appServer.addRoute("/last.json", function(req, res){
     res.setHeader('Content-Type', 'application/json');
     var data = {
-        "result": lastMeme
+        "result": lastMeme["#unicorner"]
     };
     res.write(JSON.stringify(data));
     res.end();
