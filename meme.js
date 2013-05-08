@@ -124,11 +124,10 @@ var sendMeme = function(channel, img, message, t1, t2) {
                 zen.send_privmsg(channel, "Uhoh! "+meme.error)
             } else if(meme && meme.imageUrl) {
                 zen.send_privmsg(channel, meme.imageUrl);
-                lastMeme[channel] = {
-                    "img_url": meme.imageUrl,
-                    "channel": channel
+                lastMeme[channel.replace(/#/,'')] = {
+                    "img_url": meme.imageUrl
                 };
-                zen.get_redis_client().publish('memes', JSON.stringify(lastMeme[channel]));
+                zen.get_redis_client().publish('memes', JSON.stringify(lastMeme[channel.replace(/#/,'')]));
             } else {
                 zen.send_privmsg(channel, "Something went horribly wrong!");
             }
@@ -217,6 +216,7 @@ var redirects = [
   }
 ];
 appServer.addRoute(".+", appServer.plugins.redirect, { section: "pre", routes: redirects });
+appServer.addRoute(".+", appServer.plugins.request, { section: "pre" });
 appServer.addRoute(".+", appServer.plugins.filehandler, { basedir: "./htdocs" });
 
 appServer.addRoute("/meme.json", function(req, res){
@@ -254,7 +254,7 @@ appServer.addRoute("/meme.json", function(req, res){
 appServer.addRoute("/last.json", function(req, res){
     res.setHeader('Content-Type', 'application/json');
     var data = {
-        "result": lastMeme["#unicorner"]
+        "result": lastMeme[req.param('channel')]
     };
     res.write(JSON.stringify(data));
     res.end();
