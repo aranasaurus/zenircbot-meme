@@ -13,9 +13,26 @@ module.exports.detectors = [
         testString: "I don't always test my code, but when I do, I do it in production."
     },
     {
-        regex: /(\w+(?: \w+)?) (all the .+s)[!\.]*$/i,
+        regex: /(\w+(?: \w+)?) (all the .+s(:?[!\.]+)?)/i,
         img: 'http://meme.loqi.me/img/all_the_things.jpg',
         testString: "Refactor all the things!"
+    },
+    {
+        regex: /(^.+?)\s*,?\s+(alot[.!?]*)\s*$/i,
+        img: 'http://i.imgur.com/oIwBdkb.png',
+        testString: "We sure do use memes alot",
+        postProc: function(match) {
+            return {
+                message: "",
+                t1: "",
+                t2: match[1] + ", " + match[2]
+            };
+        }
+    },
+    {
+        regex: /(?:alot)(\s+)(.+)$/i,
+        img: 'http://4.bp.blogspot.com/_D_Z-D2tzi14/S8TRIo4br3I/AAAAAAAACv4/Zh7_GcMlRKo/s400/ALOT.png',
+        testString: "alot of memes"
     },
     {
         regex: /(^one does not simply) (.+$)/i,
@@ -28,7 +45,7 @@ module.exports.detectors = [
         testString: "Not sure if this is working, or is awesome."
     },
     {
-        regex: /(^yo,? (?:dawg|dog)[\.,]* I hea?rd (?:you|u) like .+) (so (?:i|we) .+$)/i,
+        regex: /(^yo,? (?:dawg|dog)[\.,]* I hea?rd (?:you|u) like .+) (so (?:i|we) .+$)?/i,
         img: 'http://meme.loqi.me/img/xzibit.jpg',
         testString: "Yo dawg I herd you like regex. so we put a regex in yo regex so you can match while you match."
     },
