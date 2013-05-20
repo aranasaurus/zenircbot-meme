@@ -112,12 +112,15 @@ module.exports.detectors = [
         img: 'http://meme.loqi.me/img/over_9000.jpg',
         testString: "His karma, it's over 9000!",
         postProc: function(match) {
-            if (parseInt(match[2]) < 1000) {
-                match[2] *= 1000;
+            var num = parseInt(match[2])
+            if ( num < 1000 ) {
+                num = num * 1000;
             }
-            message = match[1] + match[2] + match[3];
-            t1 = false;
-            t2 = false;
+            return {
+                message: match[1] + num + match[3],
+                t1: false,
+                t2: false
+            };
         }
     }
 ];

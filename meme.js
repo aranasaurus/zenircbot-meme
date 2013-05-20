@@ -60,6 +60,7 @@ function findSingleImage(search, callback) {
 
 var sendMeme = function(channel, img, message, t1, t2) {
     debugLog('img: ' + img);
+    debugLog('message: ' + message);
     debugLog('t1: ' + t1);
     debugLog('t2: ' + t2);
 
@@ -165,7 +166,10 @@ var getMeme = function(msg, channel, explicit) {
                 img = detector.img;
                 if (detector.postProc) {
                     debugLog('Running postProc, t1: "' + t1 + '" t2: "' + t2 + '" img: ' + img);
-                    detector.postProc(match);
+                    var result = detector.postProc(match);
+                    message = result.message;
+                    t1 = result.t1;
+                    t2 = result.t2;
                 }
                 break;
             }
