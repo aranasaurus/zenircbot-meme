@@ -15,6 +15,11 @@ module.exports.detectors = [
         testString: "Refactor all the things!"
     },
     {
+        regex: /(?:alot)(\s+)(.+)$/i,
+        img: 'http://4.bp.blogspot.com/_D_Z-D2tzi14/S8TRIo4br3I/AAAAAAAACv4/Zh7_GcMlRKo/s400/ALOT.png',
+        testString: "alot of memes"
+    },
+    {
         regex: /(^one does not simply) (.+$)/i,
         img: 'http://meme.loqi.me/img/boromir.jpg',
         testString: "One does not simply meme in IRC."
