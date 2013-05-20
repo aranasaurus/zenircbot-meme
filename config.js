@@ -15,6 +15,11 @@ module.exports.detectors = [
         testString: "Refactor all the things!"
     },
     {
+        regex: /(^)(.+ alot[.!?]*)\s*$/i,
+        img: 'http://i.imgur.com/oIwBdkb.png',
+        testString: "We sure do use memes alot"
+    },
+    {
         regex: /(?:alot)(\s+)(.+)$/i,
         img: 'http://4.bp.blogspot.com/_D_Z-D2tzi14/S8TRIo4br3I/AAAAAAAACv4/Zh7_GcMlRKo/s400/ALOT.png',
         testString: "alot of memes"
@@ -30,7 +35,7 @@ module.exports.detectors = [
         testString: "Not sure if this is working, or is awesome."
     },
     {
-        regex: /(^yo,? (?:dawg|dog)[\.,]* I hea?rd (?:you|u) like .+) (so (?:i|we) .+$)/i,
+        regex: /(^yo,? (?:dawg|dog)[\.,]* I hea?rd (?:you|u) like .+) (so (?:i|we) .+$)?/i,
         img: 'http://meme.loqi.me/img/xzibit.jpg',
         testString: "Yo dawg I herd you like regex. so we put a regex in yo regex so you can match while you match."
     },
