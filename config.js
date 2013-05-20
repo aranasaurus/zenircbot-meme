@@ -1,3 +1,4 @@
+// comment out the next line to disable the webserver
 module.exports.port = 40091;
 module.exports.api_url = 'http://meme.loqi.me';
 module.exports.default_image = 'http://meme.loqi.me/img/aliens.jpg';
