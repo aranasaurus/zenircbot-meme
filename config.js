@@ -18,9 +18,16 @@ module.exports.detectors = [
         testString: "Refactor all the things!"
     },
     {
-        regex: /(^)(.+ alot[.!?]*)\s*$/i,
+        regex: /(^.+?)\s*,?\s+(alot[.!?]*)\s*$/i,
         img: 'http://i.imgur.com/oIwBdkb.png',
-        testString: "We sure do use memes alot"
+        testString: "We sure do use memes alot",
+        postProc: function(match) {
+            return {
+                message: "",
+                t1: "",
+                t2: match[1] + ", " + match[2]
+            };
+        }
     },
     {
         regex: /(?:alot)(\s+)(.+)$/i,
