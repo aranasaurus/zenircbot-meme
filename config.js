@@ -13,7 +13,7 @@ module.exports.detectors = [
         testString: "I don't always test my code, but when I do, I do it in production."
     },
     {
-        regex: /(\w+(?: \w+)?) (all the .+s(:?[!\.]+)?)/i,
+        regex: /(\w+(?: \w+)?) (all the \S+s(?:[!\.]+)?)/i,
         img: 'http://meme.loqi.me/img/all_the_things.jpg',
         testString: "Refactor all the things!"
     },
@@ -50,12 +50,12 @@ module.exports.detectors = [
         testString: "Yo dawg I herd you like regex. so we put a regex in yo regex so you can match while you match."
     },
     {
-        regex: /(^the .+) (is too (?:damn )?high[!\.]?$)/i,
+        regex: /(^the .+) (is too (?:damn )?high[!\.]?)/i,
         img: 'http://meme.loqi.me/img/too_damn_high.jpg',
         testString: "The amount of memes in this channel is too damn high!"
     },
     {
-        regex: /(^(?:brace yourselves,? )?)(.+ (?:is|are) coming[!\.]?$)/i,
+        regex: /(^(?:brace yourselves,? )?)(.+ (?:is|are) coming[!\.]?)/i,
         img: 'http://meme.loqi.me/img/ned_stark.jpg',
         testString: "Brace yourselves the memes are coming."
     },
@@ -65,7 +65,7 @@ module.exports.detectors = [
         testString: "What if space nachos?!"
     },
     {
-        regex: /(^.+) (and you should feel bad\.?$)/i,
+        regex: /(^.+) (and you should feel bad\.?)/i,
         img: 'http://meme.loqi.me/img/you_should_feel_bad.jpg',
         testString: "This meme is bad; and you should feel bad."
     },
@@ -80,7 +80,7 @@ module.exports.detectors = [
         testString: "Am I the only one around here who gives a shit about the rules?!"
     },
     {
-        regex: /(^.+) (so hot right now[\.!]*$)/i,
+        regex: /(^.+) (so hot right now[\.!]*)/i,
         img: 'http://meme.loqi.me/img/mugatu.jpg',
         testString: "Memes, so hot right now."
     },
@@ -100,22 +100,22 @@ module.exports.detectors = [
         testString: "This is IRC!"
     },
     {
-        regex: /(^.+,?) (ain'?t nobody got time for? (?:th|d)at[!\.]*)$/i,
+        regex: /(^.+,?) (ain'?t nobody got time for? (?:th|d)at[!\.]*)/i,
         img: 'http://meme.loqi.me/img/time_for.jpg',
         testString: "Bronchitis, ain't nobody got time for that!"
     },
     {
-        regex: /(.+) (\w+ go(?:es)? to (?:eleven|11))!?$/i,
+        regex: /(.+) (\w+ go(?:es)? to (?:eleven|11))!? /i,
         img: 'http://meme.loqi.me/img/goes_to_eleven.jpg',
         testString: "The memes, they go to eleven!"
     },
     {
-        regex: /^()(fantastic)!*$/i,
+        regex: /^()(fantastic!*)$/i,
         img: 'http://meme.loqi.me/img/fantastic-doctor.jpg',
         testString: "fantastic!"
     },
     {
-        regex: /(.+ over )([0-9]+)([\.!]*)$/i,
+        regex: /(.+ over )([0-9]+)([\.!]*)/i,
         img: 'http://meme.loqi.me/img/over_9000.jpg',
         testString: "His karma, it's over 9000!",
         postProc: function(match) {
